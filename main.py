@@ -3,14 +3,17 @@ import requests_cache
 import pandas as pd
 from retry_requests import retry
 
+latit = input()
+longit = input()
+
 cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
 retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
 openmeteo = openmeteo_requests.Client(session=retry_session)
 
 url = "https://api.open-meteo.com/v1/forecast"
 params = {
-    "latitude": 53.2521,
-    "longitude": 34.3717,
+    "latitude": latit,
+    "longitude": longit,
     "hourly": "temperature_2m",
     "timezone": "Europe/Moscow"
 }
