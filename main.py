@@ -3,8 +3,9 @@ import requests_cache
 import pandas as pd
 from retry_requests import retry
 
-latit = input()
-longit = input()
+city = input("Enter the city name: ")
+latit = input("Enter the latitude: ")
+longit = input("Enter the longitude: ")
 
 cache_session = requests_cache.CachedSession('.cache', expire_after = 3600)
 retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
@@ -20,6 +21,7 @@ params = {
 responses = openmeteo.weather_api(url, params=params)
 
 response = responses[0]
+print(f"City: {city}")
 print(f"Coordinates {response.Latitude()}°N {response.Longitude()}°E")
 print(f"Elevation {response.Elevation()} m asl")
 print(f"Timezone {response.Timezone()} {response.TimezoneAbbreviation()}")
